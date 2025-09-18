@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  A mathematical introduction to feedforward neural networks · BlackKeys17
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Ben Chang">
+<meta name="description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980&rsquo;s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
+<meta name="keywords" content="blog">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A mathematical introduction to feedforward neural networks">
+  <meta name="twitter:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
+
+<meta property="og:url" content="http://localhost:1313/posts/neural_net_maths/">
+  <meta property="og:site_name" content="BlackKeys17">
+  <meta property="og:title" content="A mathematical introduction to feedforward neural networks">
+  <meta property="og:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-18T12:15:23+01:00">
+    <meta property="article:modified_time" content="2025-09-18T12:15:23+01:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/neural_net_maths/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      BlackKeys17
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/neural_net_maths/">
+              A mathematical introduction to feedforward neural networks
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-09-18T12:15:23&#43;01:00">
+                September 18, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              4-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980&rsquo;s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.</p>
+<p>This post aims to give a mathematical description of what a feedforward neural network is, and how it can be trained. It assumes some basic knowledge in single and multivariable calculus, including the chain rule for partial derivatives, and some basic knowledge of matrices.</p>
+<hr>
+<h2 id="defining-the-problem">
+  Defining the problem
+  <a class="heading-link" href="#defining-the-problem">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>We first need to know what this network is even meant to do! For now, we will focus on the classic task of recognising handwritten greyscale digits as an example.</p>
+<p>More generally, we focus on tasks which involve <strong>classification</strong>. Given some inputs, we want to be able to classify them into different categories based on their attributes.</p>
+<p>The images come from a dataset called MNIST. Without going into any of its history, it is a dataset consisting of handwritten digits from 0-9 on a 28x28 grid, each image coming with a label telling us which number the pixels show. The images and labels are split into 2 separate datasets, the first to be used for training the model, and the second to be used for testing how well the model can classify drawings of digits it has never seen before.</p>
+<p>The images are represented as a 28x28 grid of numbers between 0 and 255 inclusive, where each number refers to the intensity of a particular pixel on the grid.</p>
+<p>The examples below shows how the pixel values match their corresponding intensities:</p>
+<p><img src="avatar.jpg" alt="Placeholder"></p>
+<p>Before we see how a neural network attempts to &lsquo;solve&rsquo; this classification problem, it is important to define what the neural network even is.</p>
+<hr>
+<h2 id="the-neuron">
+  The neuron
+  <a class="heading-link" href="#the-neuron">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The neuron is the most fundamental &ldquo;building block&rdquo; of a neural network. It takes some inputs, and maps them to a single output, which is somehow meant to &ldquo;encode&rdquo; some sort of information about the inputs.</p>
+<p>Each neuron has associated with it $n$ weights, which we denote $w_1,&hellip;,w_n$ for now, where $n$ is the number of inputs to the neuron. It also has a single bias, $b$.</p>
+<p>We can collectively refer to the weights and biases as parameters. When we are training a neural network, we are actually just modifying the weights and biases of the many neurons in the network to achieve some sort of desired behaviour when we feed inputs into the network.</p>
+<p>We define the function $\sigma(z)$ as follows:<br>
+</p>
+$$\sigma(z)=\frac{1}{1+e^{-z}}$$<p>Given some $n$ inputs $x_1,&hellip;,x_n$, the output $a$ of the neuron is:<br>
+</p>
+$$a=\sigma(w_1x_1+...+w_nx_n+b)$$<p>Or more compactly:<br>
+</p>
+$$a=\sigma\left(\sum{w_ix_i}+b\right)$$<p>where the summand is taken to be over all the inputs.</p>
+<p>The visual representation below is commonly used:</p>
+<p><img src="avatar.jpg" alt="Placeholder"></p>
+<p>With networks containing loads of these neurons, writing out the weights on each individual connection will clutter up the image, so they are usually omitted. This representation allows us to give a nice graph-like representation of the data flowing through a neural network when we actually start constructing them.</p>
+<p>Immediately, there is quite a bit to break down!</p>
+<p>WIthout worrying about the $\sigma$ for the moment, the inside sum is a weighted sum of the inputs $x_i$, with the various $w_i$. The bias term is then added on, leaving us with what we call the <strong>weighted input</strong> to the neuron:</p>
+<p>$z=\sum{w_ix_i} + b$</p>
+<p>This &ldquo;intermediate&rdquo; quantity turns out to be incredibly useful when we start training the network, but more on that later&hellip;</p>
+<p>After that, we apply the function $\sigma$ to this weighted input, leaving us with the final output of the neuron, $a=\sigma(z)$.</p>
+<p>In this context, the sigmoid function acts as an <strong>activation function</strong>. There are many other possibilities for the activation function, such as hyperbolic tangent or ReLU, which have generally seen better results in practice, but for now, we will just stick with the sigmoid.</p>
+<p>The function $\sigma(z)$ is known as the sigmoid function. There are a few useful and important properties we can deduce about it. It may help to look at a graph sketch of the output of the sigmoid vs its input, which is shown below:</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script>
+  window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
+</script>
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Ben Chang 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

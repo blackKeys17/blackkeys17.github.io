@@ -3,7 +3,7 @@
 
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <title>
-  My First Post · BlackKeys17
+  A mathematical introduction to feedforward neural networks · BlackKeys17
 </title>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,26 +13,19 @@
 
 
 <meta name="author" content="Ben Chang">
-<meta name="description" content="
-  Testing
-  
-    
-    Link to heading
-  
-
-HELLO FINALLY THIS STUPID THING IS WORKING">
+<meta name="description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures. Rather incredibly, the backpropagation algorithm, which only started gaining traction in the 1980&rsquo;s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
 <meta name="keywords" content="blog">
 
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="My First Post">
-  <meta name="twitter:description" content="Testing Link to heading HELLO FINALLY THIS STUPID THING IS WORKING">
+  <meta name="twitter:title" content="A mathematical introduction to feedforward neural networks">
+  <meta name="twitter:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures. Rather incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
 
-<meta property="og:url" content="http://localhost:1313/posts/my-first-post/">
+<meta property="og:url" content="http://localhost:1313/posts/neural_net_maths/neural_nets_maths/">
   <meta property="og:site_name" content="BlackKeys17">
-  <meta property="og:title" content="My First Post">
-  <meta property="og:description" content="Testing Link to heading HELLO FINALLY THIS STUPID THING IS WORKING">
+  <meta property="og:title" content="A mathematical introduction to feedforward neural networks">
+  <meta property="og:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures. Rather incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -42,7 +35,7 @@ HELLO FINALLY THIS STUPID THING IS WORKING">
 
 
 
-<link rel="canonical" href="http://localhost:1313/posts/my-first-post/">
+<link rel="canonical" href="http://localhost:1313/posts/neural_net_maths/neural_nets_maths/">
 
 
 <link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -145,8 +138,8 @@ HELLO FINALLY THIS STUPID THING IS WORKING">
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:1313/posts/my-first-post/">
-              My First Post
+            <a class="title-link" href="http://localhost:1313/posts/neural_net_maths/neural_nets_maths/">
+              A mathematical introduction to feedforward neural networks
             </a>
           </h1>
         </div>
@@ -160,7 +153,7 @@ HELLO FINALLY THIS STUPID THING IS WORKING">
             </span>
             <span class="reading-time">
               <i class="fa-solid fa-clock" aria-hidden="true"></i>
-              One-minute read
+              2-minute read
             </span>
           </div>
           
@@ -171,14 +164,21 @@ HELLO FINALLY THIS STUPID THING IS WORKING">
 
       <div class="post-content">
         
-        <h2 id="testing">
-  Testing
-  <a class="heading-link" href="#testing">
+        <p>The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures. Rather incredibly, the backpropagation algorithm, which only started gaining traction in the 1980&rsquo;s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.</p>
+<p>This post aims to give a mathematical description of what a feedforward neural network is, and how it can be trained. It assumes some basic knowledge in single and multivariable calculus, including the chain rule for partial derivatives, and some basic knowledge of matrices.</p>
+<h2 id="defining-the-problem">
+  Defining the problem
+  <a class="heading-link" href="#defining-the-problem">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p><strong>HELLO FINALLY THIS STUPID THING IS WORKING</strong></p>
+<p>We first need to know what this network is even meant to do! For now, we will focus on the task of trying to recognise handwritten greyscale digits as an example. Note that this is a classification task.</p>
+<p>The images come from a dataset called MNIST. Without going into any of its history, it is a dataset consisting of handwritten digits from 0-9 on a 28x28 grid, each image coming with a label telling us which number the pixels show. The images and labels are split into 2 separate datasets, the first to be used for training the model, and the second to be used for testing how well the model can classify drawings of digits it has never seen before.</p>
+<p>The images are represented as a 28x28 array of numbers between 0 and 255 inclusive, where each number refers to the intensity of a particular pixel on the 28x28 grid.</p>
+<p>The example below shows how the pixel values match their corresponding intensities:</p>
+<p><img src="./img/avatar.jpg" alt="Placeholder"></p>
+<p>Before we see how a neural network attempts to &lsquo;solve&rsquo; this classification problem, it is important to define what it even is.</p>
 
       </div>
 

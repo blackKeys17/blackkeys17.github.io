@@ -1,8 +1,77 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'Ben Chang'
-theme = 'ananke'
+baseurl = "http://www.example.com"
+title = "BlackKeys17"
+theme = "hugo-coder"
+languagecode = "en"
+defaultcontentlanguage = "en"
 
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
+
+[pagination]
+pagerSize = 20
+
+[services]
+[services.disqus]
+shortname = "yourdiscussshortname"
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+  author = "Ben Chang"
+  info = "Maths student and irresponsible programmer"
+  description = "Welcome to my website!"
+  keywords = "blog"
+  avatarurl = "img/avatar.jpg"
+  #gravatar = "john.doe@example.com"
+
+  faviconSVG = "/img/favicon.svg"
+  favicon_32 = "/img/favicon-32x32.png"
+  favicon_16 = "/img/favicon-16x16.png"
+
+  since = 2025
+
+  enableTwemoji = true
+
+  colorScheme = "auto"
+  hidecolorschemetoggle = false
+
+  # customCSS = ["css/custom.css"]
+  # customSCSS = ["scss/custom.scss"]
+  # customJS = ["js/custom.js"]
+  math = true
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  author = "authors"
+
+# Social links
+[[params.social]]
+  name = "Github"
+  icon = "fa-brands fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/blackKeys17"
+[[params.social]]
+  name = "LinkedIn"
+  icon = "fa-brands fa-linkedin fa-2x"
+  weight = 2
+  url = "https://www.linkedin.com/in/ben-chang-835b82300/"
+
+# Menu links
+[[menu.main]]
+  name = "About"
+  weight = 1
+  url  = "about/"
+[[menu.main]]
+  name = "Blog"
+  weight = 2
+  url = "posts/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
