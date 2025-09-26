@@ -512,7 +512,7 @@ We now have backpropagation as a way to compute gradients, so we are ready to ou
         - Accumulate this loss over all of the examples in the minibatch
     - Update parameters using the averaged gradients (after dividing by $m$) with gradient descent.
         - Done by using the updates:
-            - $w_k\rightarrow w_k-\eta\frac{\partial C}{\partial w_k}$
-            - $b_k\rightarrow b_k-\eta\frac{\partial C}{\partial b_k}$
+            - $w_k\rightarrow w_k-\frac{\eta}{m}\frac{\partial C}{\partial w_k}$
+            - $b_k\rightarrow b_k-\frac{\eta}{m}\frac{\partial C}{\partial b_k}$
 
 We will go over how this can actually be implemented later :)
