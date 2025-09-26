@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   <title>
   A mathematical introduction to feedforward neural networks · BlackKeys17
 </title>
@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="A mathematical introduction to feedforward neural networks">
   <meta name="twitter:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
 
-<meta property="og:url" content="http://localhost:1313/posts/neural_net_maths/">
+<meta property="og:url" content="http://www.example.com/posts/neural_net_maths/">
   <meta property="og:site_name" content="BlackKeys17">
   <meta property="og:title" content="A mathematical introduction to feedforward neural networks">
   <meta property="og:description" content="The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980’s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.">
@@ -35,7 +35,7 @@
 
 
 
-<link rel="canonical" href="http://localhost:1313/posts/neural_net_maths/">
+<link rel="canonical" href="http://www.example.com/posts/neural_net_maths/">
 
 
 <link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -45,7 +45,7 @@
 
   
   
-  <link rel="stylesheet" href="/css/coder.css" media="screen">
+  <link rel="stylesheet" href="/css/coder.min.022594d625780e2edf64581b893d32cb35c11de5d88953ea4ad3c2e45451e214.css" integrity="sha256-AiWU1iV4Di7fZFgbiT0yyzXBHeXYiVPqStPC5FRR4hQ=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -55,7 +55,7 @@
   
     
     
-    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
   
 
 
@@ -104,7 +104,7 @@
 <nav class="navigation">
   <section class="container">
     
-    <a class="navigation-title" href="http://localhost:1313/">
+    <a class="navigation-title" href="http://www.example.com/">
       BlackKeys17
     </a>
     
@@ -139,7 +139,7 @@
       <header>
         <div class="post-title">
           <h1 class="title">
-            <a class="title-link" href="http://localhost:1313/posts/neural_net_maths/">
+            <a class="title-link" href="http://www.example.com/posts/neural_net_maths/">
               A mathematical introduction to feedforward neural networks
             </a>
           </h1>
@@ -154,7 +154,7 @@
             </span>
             <span class="reading-time">
               <i class="fa-solid fa-clock" aria-hidden="true"></i>
-              19-minute read
+              20-minute read
             </span>
           </div>
           
@@ -427,7 +427,18 @@ $$\frac{\partial C}{\partial z^L_k}=\sum_{i=1}^n\frac{\partial C}{\partial a^L_i
 $$\frac{\partial a^L_i}{\partial z^L_k}$$<p>ends up vanishing as this output $a^L_i$ is independent of the weighted input $z^L_k$ which is at a different neuron. Now we are only left with the term in the sum with $i=k$, which leaves:</p>
 $$\frac{\partial C}{\partial z^L_k}=\frac{\partial C}{\partial a^L_k}\frac{d a^L_k}{d z^L_k}$$<p>where it&rsquo;s fine to write the second term is an ordinary derivative as we have already defined $a^L_k=\sigma(z^L_k)$. Rewriting in our notation:</p>
 $$\delta^L_k=\frac{\partial C}{\partial a^L_k}\sigma'(z^L_k)$$<p>for each $k$. This is a formula for the individual components of our error vector and it can now be easily verified that the formula which we claimed above is true.</p>
-<hr>
+<h4 id="output-layer-errors-with-quadratic-loss">
+  Output layer errors with quadratic loss
+  <a class="heading-link" href="#output-layer-errors-with-quadratic-loss">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>Again, if you haven&rsquo;t done so before, I would encourage you to try deriving this result on your own first. Recall that given a target label $y$ and the output of our network $a^L$, our quadratic loss was defined by:</p>
+$$\sum_{i=1}^n(y_i-a^L_i)^2$$<p>For any particular $a^L_k$, we have:</p>
+$$\frac{\partial C}{\partial a^L_k}=2(a^L_i-y_i)$$<p>It is not hard now to verify that in the case of quadratic loss,</p>
+$$\nabla_a C=2(a^L-y)$$<p>Subbing back in:</p>
+$$\delta^L=2(a^L-y)\odot \sigma'(z^L)$$<hr>
 <h3 id="2-errors-in-a-layer-from-errors-in-the-next-layer">
   2: Errors in a layer from errors in the next layer
   <a class="heading-link" href="#2-errors-in-a-layer-from-errors-in-the-next-layer">
@@ -509,7 +520,61 @@ $$
 & \frac{\partial C}{\partial b^l_j}=\delta^l_j \\
 & \frac{\partial C}{\partial w^l_{j,k}}=a^{l-1}_k\delta^l_j
 \end{align}
-$$
+$$<hr>
+<h2 id="outlining-the-training-process">
+  Outlining the training process
+  <a class="heading-link" href="#outlining-the-training-process">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>We now have backpropagation as a way to compute gradients, so we are ready to outline how the network can be trained. It can be summarised in  a few steps:</p>
+<ul>
+<li>Randomly generate minibatches of training examples (of size $m$).</li>
+<li>For each minibatch of training examples $x_1,x_2,&hellip;,x_m$:
+<ul>
+<li>Pass each $x_i$ forwards through the network.
+<ul>
+<li>Set $a^1=x_i$</li>
+<li>Repeatedly compute $a^{l+1}=\sigma(w^{l+1}a^l+b^{l+1})$ until the output layer.</li>
+</ul>
+</li>
+<li>Backpropagate the loss:
+<ul>
+<li>Compute output layer errors:
+<ul>
+<li>$\delta^L=\nabla_a C\odot \sigma&rsquo;(z^L)$</li>
+</ul>
+</li>
+<li>Compute errors in previous layers:
+<ul>
+<li>$\delta^l=((w^{l+1})^T\delta^{l+1})\odot\sigma&rsquo;(z^l)$</li>
+</ul>
+</li>
+<li>Compute weight and bias gradients:
+<ul>
+<li>$\frac{\partial C}{\partial b^l_j}=\delta^l_j$</li>
+<li>$\frac{\partial C}{\partial w^l_{j,k}}=a^{l-1}_k\delta^l_j$</li>
+</ul>
+</li>
+<li>Accumulate this loss over all of the examples in the minibatch</li>
+</ul>
+</li>
+<li>Update parameters using the averaged gradients (after dividing by $m$) with gradient descent.
+<ul>
+<li>Done by using the updates:
+<ul>
+<li>$w_k\rightarrow w_k-\frac{\eta}{m}\frac{\partial C}{\partial w_k}$</li>
+<li>$b_k\rightarrow b_k-\frac{\eta}{m}\frac{\partial C}{\partial b_k}$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>We will go over how this can actually be implemented later :)</p>
+
       </div>
 
 
@@ -590,7 +655,7 @@ $$
 
   
   
-  <script src="/js/coder.js"></script>
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
   
 
   

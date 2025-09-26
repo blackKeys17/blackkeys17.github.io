@@ -2,27 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>http://www.example.com/</loc>
     <lastmod>2025-09-18T21:23:09+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/fnn_implementation/</loc>
+    <loc>http://www.example.com/posts/</loc>
     <lastmod>2025-09-18T21:23:09+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-09-18T21:23:09+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/neural_net_maths/</loc>
+    <loc>http://www.example.com/posts/neural_net_maths/</loc>
     <lastmod>2025-09-18T12:15:23+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>http://www.example.com/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/authors/</loc>
+    <loc>http://www.example.com/authors/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>http://www.example.com/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/series/</loc>
+    <loc>http://www.example.com/series/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>http://www.example.com/tags/</loc>
   </url>
 </urlset>

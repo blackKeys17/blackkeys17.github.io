@@ -2,31 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>BlackKeys17</title>
-    <link>http://localhost:1313/</link>
+    <link>http://www.example.com/</link>
     <description>Recent content on BlackKeys17</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 18 Sep 2025 21:23:09 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Coding a neural network with only numpy?</title>
-      <link>http://localhost:1313/posts/fnn_implementation/</link>
-      <pubDate>Thu, 18 Sep 2025 21:23:09 +0100</pubDate>
-      <guid>http://localhost:1313/posts/fnn_implementation/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Thu, 18 Sep 2025 12:15:23 +0100</lastBuildDate>
+    <atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A mathematical introduction to feedforward neural networks</title>
-      <link>http://localhost:1313/posts/neural_net_maths/</link>
+      <link>http://www.example.com/posts/neural_net_maths/</link>
       <pubDate>Thu, 18 Sep 2025 12:15:23 +0100</pubDate>
-      <guid>http://localhost:1313/posts/neural_net_maths/</guid>
+      <guid>http://www.example.com/posts/neural_net_maths/</guid>
       <description>&lt;p&gt;The introduction of feedforward neural networks and their application to early problems such as recognising handwritten digits from the MNIST dataset was a landmark achievement. Despite their limited standalone use today, they still remain the backbone of various models of wide range of modern architectures Incredibly, the backpropagation algorithm, which only started gaining traction in the 1980&amp;rsquo;s, is still used when updating the billions of trainable parameters in the massive LLMs we see today.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
-      <link>http://localhost:1313/about/</link>
+      <link>http://www.example.com/about/</link>
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
+      <guid>http://www.example.com/about/</guid>
       <description>&lt;p&gt;Hi there! I&amp;rsquo;m Ben, and welcome to my personal website!&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m currently a 1st year student studying &lt;strong&gt;mathematics&lt;/strong&gt; at the &lt;strong&gt;University of Cambridge&lt;/strong&gt;. This is a place where I&amp;rsquo;ll be documenting a lot of the academic stuff I&amp;rsquo;m working on.&lt;/p&gt;</description>
     </item>
   </channel>
